@@ -1,10 +1,10 @@
 # I387_JS_Task_Management
 
 # Task Manager 
-# 1. Description :
+## 1. Description :
   A simple, user-friendly task management website (similar to a to-do list) that helps you organize your daily tasks efficiently.
 
-# 2. Features :
+## 2. Features :
 * **Add**: We can add tasks to be done with name and description
 * **Edit**: We can edit the same if some alterations are to be done
 * **Delete**: We can remove tasks that are no longer needed
@@ -18,17 +18,17 @@
     - All tasks are automatically saved in your browser's local storage
     - Your tasks remain even after closing/reopening the browser
 
-# 3. Usage :
+## 3. Usage :
 * A user friendly website to keep track of the tasks you have to do so you forget nothing.
 * We can add, delete, edit tasks along with the name and description.
 * We can view the list of tasks which are completed, pending or all tasks.
 
-# 4. Files included
+## 4. Files included
 * task.html (The structure)
 * task_styles.css (The Styles added to the structure)
 * task_script.js (The functionalities added)
 
-# 5. How to run
+## 5. How to run
 * Download all files (task.html, task_styles.css, task_script.js)
 * Open task.html in any web browser
 * No installation needed!
