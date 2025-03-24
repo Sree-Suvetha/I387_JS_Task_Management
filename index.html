@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <style>
+    
+body {
+    font-family: 'Indie Flower', cursive;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fce4ec;
+  }
+  
+  .task-manager {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; 
+    position: relative; 
+  }
+  
+body::before,
+body::after {
+  content: '';
+  position: fixed; 
+  top: 0;
+  bottom: 0;
+  width: 200px; 
+  background-image: url('https://png.pngtree.com/png-vector/20220226/ourlarge/pngtree-creative-cute-pink-sticky-note-border-png-image_4413135.png'); 
+  background-repeat: repeat-y; 
+  background-size: contain; 
+  z-index: -1; 
+}
+
+body::before {
+  left: 0; }
+
+body::after {
+  right: 0; 
+}
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2rem; 
+  }
+  
+  .add-task {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .add-task input,
+  .add-task textarea {
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; 
+    font-family: 'Indie Flower', cursive;
+  }
+  
+  .add-task textarea {
+    resize: vertical; 
+    min-height: 60px; 
+  }
+  
+  .add-task button {
+    padding: 8px; 
+    background-color: #ff6f61; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; 
+    font-family: 'Indie Flower', cursive;
+  }
+  
+  .add-task button:hover {
+    background-color: #ff4a3d; 
+  }
+  
+
+  .task-list {
+    margin-top: 20px;
+  }
+  
+  .task-list h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.5rem; 
+  }
+  
+  #tasks {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+  }
+  
+  
+  #tasks li {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 10px; 
+    border: 1px solid #ffcccb; 
+    border-radius: 4px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  #tasks li:nth-child(odd) {
+    background-color: rgba(255, 228, 225, 0.9); 
+    border-color: #ffcccb; 
+  }
+  
+  #tasks li:hover {
+    transform: scale(1.02); 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px; 
+  }
+  
+  .task-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .task-status {
+    font-size: 0.9rem;
+    color: #555;
+    background-color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  
+  .task-description {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 8px; 
+  }
+  
+  .task-buttons {
+    display: flex;
+    gap: 8px; 
+  }
+  
+  .task-buttons button {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'Indie Flower', cursive;
+  }
+  
+  .task-buttons button.edit-btn {
+    background-color: #ffd54f; 
+    color: #000;
+  }
+  
+  .task-buttons button.delete-btn {
+    background-color: #ef5350; 
+    color: #fff;
+  }
+  
+  .task-buttons button.toggle-btn {
+    background-color: #64b5f6;
+    color: #fff;
+  }
+  
+  .task-buttons button:hover {
+    opacity: 0.9;
+  }
+  
+  #filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  #filter-buttons button {
+    padding: 8px; 
+    background-color: #81c784;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px; 
+    font-family: 'Indie Flower', cursive;
+  }
+  
+  #filter-buttons button:hover {
+    background-color: #66bb6a; 
+  }
+  
+  @media (max-width: 600px) {
+    .task-manager {
+      padding: 15px;
+      max-width: 90%; 
+    }
+  
+    .add-task input,
+    .add-task textarea,
+    .add-task button {
+      font-size: 12px; 
+    }
+  
+    #tasks li button {
+      font-size: 10px; 
+      padding: 3px 6px; 
+    }
+  
+    #filter-buttons button {
+      font-size: 10px; 
+      padding: 6px; 
+    }
+  }
+  </style>
+</head>
+
+
+<body>
+  <div class="task-manager">
+    <h1>Task Manager</h1>
+
+    <!-- Form -->
+    <div class="add-task">
+      <input type="text" id="task-name" placeholder="Task Name" required>
+      <textarea id="task-description" placeholder="Task Description"></textarea>
+      <button id="add-task-btn">Add Task</button>
+    </div>
+    
+    <!-- Task List -->
+    <div class="task-list">
+      <h2>Tasks</h2>
+      <div id="filter-buttons">
+        <button id="filter-all">All</button>
+        <button id="filter-completed">Completed</button>
+        <button id="filter-pending">Pending</button>
+      </div>
+      <ul id="tasks"></ul>
+    </div>
+  </div>
+
+  <script>
+    class Task {
+    constructor(name, description) {
+      this.id = Date.now().toString(); 
+      this.name = name;
+      this.description = description;
+      this.status = "pending"; 
+    }
+  }
+  
+  let tasks = [];
+  
+  const taskNameInput = document.getElementById("task-name");
+  const taskDescriptionInput = document.getElementById("task-description");
+  const addTaskBtn = document.getElementById("add-task-btn");
+  const taskList = document.getElementById("tasks");
+  const filterAllBtn = document.getElementById("filter-all");
+  const filterCompletedBtn = document.getElementById("filter-completed");
+  const filterPendingBtn = document.getElementById("filter-pending");
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = savedTasks;
+    renderTasks(tasks);
+  });
+  
+  addTaskBtn.addEventListener("click", () => {
+    const taskName = taskNameInput.value.trim();
+    const taskDescription = taskDescriptionInput.value.trim();
+  
+    if (!taskName) {
+      alert("Task name cannot be empty!");
+      return;
+    }
+  
+    const newTask = new Task(taskName, taskDescription);
+    tasks.push(newTask);
+    saveTasksToLocalStorage();
+    renderTasks(tasks);
+    clearInputs();
+  });
+  
+  function renderTasks(taskArray = tasks) {
+    taskList.innerHTML = "";
+  
+    taskArray.forEach((task) => {
+      const taskItem = document.createElement("li");
+      taskItem.innerHTML = `
+        <div class="task-header">
+          <span class="task-name">${task.name}</span>
+          <span class="task-status">${task.status}</span>
+        </div>
+        <div class="task-description">${task.description}</div>
+        <div class="task-buttons">
+          <button class="edit-btn" onclick="editTask('${task.id}')">Edit</button>
+          <button class="delete-btn" onclick="deleteTask('${task.id}')">Delete</button>
+          <button class="toggle-btn" onclick="toggleStatus('${task.id}')">
+            ${task.status === "pending" ? "Mark Completed" : "Mark Pending"}
+          </button>
+        </div>
+      `;
+      taskList.appendChild(taskItem);
+    });
+  }
+  
+  function editTask(taskId) {
+    const task = tasks.find((task) => task.id === taskId);
+    if (!task) return;
+  
+    const newName = prompt("Enter new task name:", task.name);
+    const newDescription = prompt("Enter new task description:", task.description);
+  
+    if (newName !== null && newName.trim() !== "") {
+      task.name = newName.trim();
+    }
+    if (newDescription !== null) {
+      task.description = newDescription.trim();
+    }
+  
+    saveTasksToLocalStorage();
+    renderTasks(tasks);
+  }
+  
+  function deleteTask(taskId) {
+    tasks = tasks.filter((task) => task.id !== taskId);
+    saveTasksToLocalStorage();
+    renderTasks(tasks);
+  }
+  
+  function toggleStatus(taskId) {
+    const task = tasks.find((task) => task.id === taskId);
+    if (!task) return;
+  
+    task.status = task.status === "pending" ? "completed" : "pending";
+    saveTasksToLocalStorage();
+    renderTasks(tasks);
+  }
+  
+  filterAllBtn.addEventListener("click", () => renderTasks(tasks));
+  filterCompletedBtn.addEventListener("click", () => {
+    const completedTasks = tasks.filter((task) => task.status === "completed");
+    renderTasks(completedTasks);
+  });
+  filterPendingBtn.addEventListener("click", () => {
+    const pendingTasks = tasks.filter((task) => task.status === "pending");
+    renderTasks(pendingTasks);
+  });
+  
+  function saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+  
+  function clearInputs() {
+    taskNameInput.value = "";
+    taskDescriptionInput.value = "";
+  }
+  </script>
+</body>
+</html>
