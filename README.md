@@ -27,10 +27,13 @@
 * task.html (The structure)
 * task_styles.css (The Styles added to the structure)
 * task_script.js (The functionalities added)
+* index.html (Entire code)
 
 ## 5. How to run
-* Download all files (task.html, task_styles.css, task_script.js)
-* Open task.html in any web browser
+*Prerequisites*:
+Any device that supports browser like edge, chrome etc.,
+* Download index.html file
+* Open it in any browser
 * No installation needed!
 
 
